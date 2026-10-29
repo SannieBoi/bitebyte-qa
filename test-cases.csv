@@ -1,126 +1,126 @@
-ID,Module,Title,Preconditions,Steps,Test data,Expected result,Actual result,Status,Priority,Bug ID,Environment
+ID,Module,Title,Preconditions,Steps,Test data,Expected result,Actual result,Status,Priority,Bug ID,Environment,Retest status,Retest notes
 SU-01,Sign up,Register with valid data,On signup page; email and username not used before,"1. Fill all fields with valid data
 2. Click Sign up","Username: qa_tester1
 Email: qa.tester1@test.com
-Password: Test@1234",Redirected to login page; new user exists in users table (SQL check Q1),As expected.,Pass,High,,E1
+Password: Test@1234",Redirected to login page; new user exists in users table (SQL check Q1),As expected.,Pass,High,,E1,,
 SU-02,Sign up,Submit with all fields empty,On signup page,"1. Leave all fields empty
-2. Click Sign up",-,Form not submitted; 'is required' error shown under each of the 4 fields,As expected.,Pass,High,,E1
+2. Click Sign up",-,Form not submitted; 'is required' error shown under each of the 4 fields,As expected.,Pass,High,,E1,,
 SU-03,Sign up,Username shorter than minimum (2 chars),On signup page,"1. Enter 2-character username, other fields valid
-2. Click Sign up",Username: ab,Form not submitted; error says username must be at least 3 characters,As expected.,Pass,Medium,,E1
+2. Click Sign up",Username: ab,Form not submitted; error says username must be at least 3 characters,As expected.,Pass,Medium,,E1,,
 SU-04,Sign up,Username at minimum length (3 chars),On signup page,"1. Enter 3-character username, other fields valid
-2. Click Sign up",Username: abc,Username accepted; account created,As expected.,Pass,Medium,,E1
+2. Click Sign up",Username: abc,Username accepted; account created,As expected.,Pass,Medium,,E1,,
 SU-05,Sign up,Username at maximum length (15 chars),On signup page,"1. Enter 15-character username, other fields valid
-2. Click Sign up",Username: abcdefghijklmno,Username accepted; account created,As expected.,Pass,Medium,,E1
+2. Click Sign up",Username: abcdefghijklmno,Username accepted; account created,As expected.,Pass,Medium,,E1,,
 SU-06,Sign up,Username over maximum length (16 chars),On signup page,"1. Enter 16-character username
-2. Read the error message",Username: abcdefghijklmnop,Form not submitted; error message correctly states the allowed maximum (15 characters),"Form not submitted, but the error says 'Username must be less than 15 characters' although 15 characters is allowed (SU-05). Message suggests a maximum of 14.",Fail,Medium,BUG-017,E1
+2. Read the error message",Username: abcdefghijklmnop,Form not submitted; error message correctly states the allowed maximum (15 characters),"Form not submitted, but the error says 'Username must be less than 15 characters' although 15 characters is allowed (SU-05). Message suggests a maximum of 14.",Fail,Medium,BUG-017,E1,,
 SU-07,Sign up,Invalid email formats,On signup page,"1. Enter each invalid email, other fields valid
 2. Click Sign up after each","test@
 test.com
 test@mail
-test @mail.com",Each one rejected with 'Email is not valid',As expected.,Pass,High,,E1
+test @mail.com",Each one rejected with 'Email is not valid',As expected.,Pass,High,,E1,,
 SU-08,Sign up,Password shorter than 8 characters,On signup page,"1. Enter 7-char password meeting all other rules
-2. Click Sign up",Password: Te@1234,Form not submitted; 'At least 8 characters' rule stays unchecked,As expected.,Pass,High,,E1
+2. Click Sign up",Password: Te@1234,Form not submitted; 'At least 8 characters' rule stays unchecked,As expected.,Pass,High,,E1,,
 SU-09,Sign up,Password at minimum length (8 chars),On signup page,"1. Enter 8-char password meeting all rules
-2. Click Sign up",Password: Te@12345,Password accepted; account created,As expected.,Pass,Medium,,E1
+2. Click Sign up",Password: Te@12345,Password accepted; account created,As expected.,Pass,Medium,,E1,,
 SU-10,Sign up,Password missing one required character type,On signup page,"1. Enter each password
 2. Watch the rules checklist
 3. Click Sign up","test@1234 (no uppercase)
 TEST@1234 (no lowercase)
 Test@abcd (no number)
-Test12345 (no symbol)",Each rejected; the matching rule stays unchecked in the checklist,As expected.,Pass,High,,E1
+Test12345 (no symbol)",Each rejected; the matching rule stays unchecked in the checklist,As expected.,Pass,High,,E1,,
 SU-11,Sign up,Password rules checklist updates live,On signup page,"1. Click into Password
-2. Type T, e, @, 1... one character at a time",Test@1234,Checklist appears on focus; each rule turns green as soon as it is met; hides on blur,As expected.,Pass,Low,,E1
+2. Type T, e, @, 1... one character at a time",Test@1234,Checklist appears on focus; each rule turns green as soon as it is met; hides on blur,As expected.,Pass,Low,,E1,,
 SU-12,Sign up,Confirm password does not match,On signup page,"1. Enter valid password
 2. Enter different confirm password
-3. Click Sign up",Test@1234 / Test@1235,Form not submitted; 'Passwords do not match' shown,As expected.,Pass,High,,E1
+3. Click Sign up",Test@1234 / Test@1235,Form not submitted; 'Passwords do not match' shown,As expected.,Pass,High,,E1,,
 SU-13,Sign up,Register with an email already in use,User from SU-01 exists,"1. Fill form using SU-01's email and a new username
-2. Click Sign up",Email: qa.tester1@test.com,Account not created; clear error message shown; still only 1 user with that email (SQL check Q2),"Account not created; still 1 user with that email. Error shown: 'Korisničko ime ili email su već u upotrebi.' (Serbian, see SU-16).",Pass,High,,E1
+2. Click Sign up",Email: qa.tester1@test.com,Account not created; clear error message shown; still only 1 user with that email (SQL check Q2),"Account not created; still 1 user with that email. Error shown: 'Korisničko ime ili email su već u upotrebi.' (Serbian, see SU-16).",Pass,High,,E1,,
 SU-14,Sign up,Register with a username already in use,User from SU-01 exists,"1. Fill form using SU-01's username and a new email
-2. Click Sign up",Username: qa_tester1,Account not created; clear error message shown,Account not created; same error message as SU-13.,Pass,High,,E1
+2. Click Sign up",Username: qa_tester1,Account not created; clear error message shown,Account not created; same error message as SU-13.,Pass,High,,E1,,
 SU-15,Sign up,Server-side validation with JavaScript disabled,JavaScript disabled in browser (DevTools > Settings > Debugger),"1. Submit signup with: weak password, 1-char username
 2. Re-enable JavaScript afterwards","Username: a
-Password: abc",Server rejects the input; no account is created with invalid data,Server accepted the input: account created with username 'a' and password 'abc'; redirected to login page.,Fail,High,BUG-003,E1
+Password: abc",Server rejects the input; no account is created with invalid data,Server accepted the input: account created with username 'a' and password 'abc'; redirected to login page.,Fail,High,BUG-003,E1,,
 SU-16,Sign up,Error messages are in one consistent language,On signup page,"1. Trigger client-side errors (empty fields)
 2. Trigger server-side errors (duplicate email)
-3. Compare languages",-,All messages use the same language as the rest of the UI,"Mixed languages: client-side errors are English ('Email is required'), server-side errors are Serbian ('Korisničko ime ili email su već u upotrebi.', 'Pogrešan email ili lozinka.').",Fail,Low,BUG-010,E1
-SU-17,Sign up,Password is stored hashed,SU-01 passed,1. Run SQL check Q1,-,"Pass column holds a bcrypt hash (starts with $2y$), never the plain password","As expected. Pass starts with $2y$, length 60.",Pass,High,,E1
+3. Compare languages",-,All messages use the same language as the rest of the UI,"Mixed languages: client-side errors are English ('Email is required'), server-side errors are Serbian ('Korisničko ime ili email su već u upotrebi.', 'Pogrešan email ili lozinka.').",Fail,Low,BUG-010,E1,,
+SU-17,Sign up,Password is stored hashed,SU-01 passed,1. Run SQL check Q1,-,"Pass column holds a bcrypt hash (starts with $2y$), never the plain password","As expected. Pass starts with $2y$, length 60.",Pass,High,,E1,,
 LI-01,Log in / log out,Log in with valid credentials,Registered user exists,"1. Enter registered email and password
-2. Click Log in",qa.tester1@test.com / Test@1234,Logged in and redirected to the submit recipe page,As expected.,Pass,High,,E1
+2. Click Log in",qa.tester1@test.com / Test@1234,Logged in and redirected to the submit recipe page,As expected.,Pass,High,,E1,,
 LI-02,Log in / log out,Log in with wrong password,Registered user exists,"1. Enter registered email, wrong password
-2. Click Log in",qa.tester1@test.com / Wrong@123,Stays on login page; generic error shown (does not reveal which field is wrong),"As expected. Generic error 'Pogrešan email ili lozinka.' (Serbian, see SU-16).",Pass,High,,E1
+2. Click Log in",qa.tester1@test.com / Wrong@123,Stays on login page; generic error shown (does not reveal which field is wrong),"As expected. Generic error 'Pogrešan email ili lozinka.' (Serbian, see SU-16).",Pass,High,,E1,,
 LI-03,Log in / log out,Log in with unregistered email,On login page,"1. Enter unregistered email and any password
-2. Click Log in",nobody@test.com / Test@1234,Stays on login page; same generic error as LI-02,As expected. Same generic error as LI-02.,Pass,Medium,,E1
+2. Click Log in",nobody@test.com / Test@1234,Stays on login page; same generic error as LI-02,As expected. Same generic error as LI-02.,Pass,Medium,,E1,,
 LI-04,Log in / log out,Log in with empty fields,On login page,"1. Leave fields empty
-2. Click Log in",-,Form not submitted; required-field message shown,As expected. Browser blocks submit: 'Please fill out this field.',Pass,Medium,,E1
+2. Click Log in",-,Form not submitted; required-field message shown,As expected. Browser blocks submit: 'Please fill out this field.',Pass,Medium,,E1,,
 LI-05,Log in / log out,Email is case-insensitive at login,Registered user exists,"1. Enter email in uppercase with correct password
-2. Click Log in",QA.TESTER1@TEST.COM / Test@1234,Login succeeds,As expected.,Pass,Low,,E1
+2. Click Log in",QA.TESTER1@TEST.COM / Test@1234,Login succeeds,As expected.,Pass,Low,,E1,,
 LI-06,Log in / log out,Log out ends the session,User is logged in,"1. Click Log out
-2. Open submit.php directly in the address bar",-,Logged out; submit.php redirects to login page,No Log out button or link anywhere; header still shows LOG IN / SIGN UP while logged in. Opening logout.php directly does end the session (submit.php then redirects to login).,Fail,High,BUG-004,E1
-LI-07,Log in / log out,Protected page without logging in,Not logged in,1. Open php/submit.php directly in the address bar,-,Redirected to login page,As expected.,Pass,High,,E1
+2. Open submit.php directly in the address bar",-,Logged out; submit.php redirects to login page,No Log out button or link anywhere; header still shows LOG IN / SIGN UP while logged in. Opening logout.php directly does end the session (submit.php then redirects to login).,Fail,High,BUG-004,E1,,
+LI-07,Log in / log out,Protected page without logging in,Not logged in,1. Open php/submit.php directly in the address bar,-,Redirected to login page,As expected.,Pass,High,,E1,,
 LI-08,Log in / log out,Back button after logout,User is logged in,"1. Log out
-2. Press browser Back button",-,Protected content is not shown or usable; any action redirects to login,As expected. Back after logout lands on the login page.,Pass,Medium,,E1
+2. Press browser Back button",-,Protected content is not shown or usable; any action redirects to login,As expected. Back after logout lands on the login page.,Pass,Medium,,E1,,
 SR-01,Submit recipe,Submit a complete recipe,User is logged in,"1. Fill all fields, choose photo under 2 MB, pick 2 categories and 2 tags
 2. Click Submit","Title: QA Test Pancakes
 Time: 30
-Photo: 500 KB JPG",Recipe saved; visible in recipes list and on its details page with all entered data (SQL check Q3),"As expected. 'Recipe submitted successfully!'; saved with correct author, 2 categories and 2 tags; shown in list and on details page.",Pass,High,,E1
+Photo: 500 KB JPG",Recipe saved; visible in recipes list and on its details page with all entered data (SQL check Q3),"As expected. 'Recipe submitted successfully!'; saved with correct author, 2 categories and 2 tags; shown in list and on details page.",Pass,High,,E1,Pass,29.10.2026: regression check after BUG-002 fix
 SR-02,Submit recipe,Required fields left empty,User is logged in,"1. Leave Title, Time and Recipe empty
-2. Click Submit",-,Form not submitted; required fields highlighted,"As expected. Browser blocks submit; Title, Time and Recipe marked invalid; nothing saved.",Pass,High,,E1
-SR-03,Submit recipe,Photo larger than 2 MB,User is logged in,1. Choose a JPG just over 2 MB,Photo: 2.1 MB JPG,Alert 'File too large (max 2MB)'; file cleared; no preview,As expected.,Pass,High,,E1
+2. Click Submit",-,Form not submitted; required fields highlighted,"As expected. Browser blocks submit; Title, Time and Recipe marked invalid; nothing saved.",Pass,High,,E1,,
+SR-03,Submit recipe,Photo larger than 2 MB,User is logged in,1. Choose a JPG just over 2 MB,Photo: 2.1 MB JPG,Alert 'File too large (max 2MB)'; file cleared; no preview,As expected.,Pass,High,,E1,,
 SR-04,Submit recipe,Photo just under 2 MB,User is logged in,"1. Choose a JPG just under 2 MB
-2. Submit the recipe",Photo: 1.9 MB JPG,"Photo accepted, previewed and saved with the recipe","As expected. Preview shown; saved file is 1,992,294 bytes.",Pass,Medium,,E1
+2. Submit the recipe",Photo: 1.9 MB JPG,"Photo accepted, previewed and saved with the recipe","As expected. Preview shown; saved file is 1,992,294 bytes.",Pass,Medium,,E1,Pass,29.10.2026: regression check after BUG-002 fix
 SR-05,Submit recipe,Unsupported file types,User is logged in,"1. Try to choose a GIF
 2. Try a .txt file renamed to .jpg
 3. Submit","test.gif
-fake.jpg (text file)",Non-image files rejected; no broken image saved,"All three files accepted and saved: GIF, text file renamed to .jpg (saved as a broken image), and a .php file, which the server then executes when its URL is opened.",Fail,Medium,BUG-002,E1
+fake.jpg (text file)",Non-image files rejected; no broken image saved,"All three files accepted and saved: GIF, text file renamed to .jpg (saved as a broken image), and a .php file, which the server then executes when its URL is opened.",Fail,Medium,BUG-002,E1,Pass,"29.10.2026: GIF, text file renamed to .jpg and .php file all rejected with ""Only JPG and PNG images are allowed as the recipe photo.""; nothing saved. BUG-002 fixed."
 SR-06,Submit recipe,Submit without a photo,User is logged in,"1. Fill required fields, no photo
-2. Click Submit",-,Recipe saved; a placeholder image shown instead of a broken image,"Recipe saved with ImageURL 'default.png', but that file doesn't exist: broken image on the details page and in the list.",Fail,Medium,BUG-008,E1
+2. Click Submit",-,Recipe saved; a placeholder image shown instead of a broken image,"Recipe saved with ImageURL 'default.png', but that file doesn't exist: broken image on the details page and in the list.",Fail,Medium,BUG-008,E1,,
 SR-07,Submit recipe,Invalid preparation time,User is logged in,"1. Enter each time value
 2. Click Submit after each","0
 -5
-99999",0 and negative values rejected; unrealistic values rejected or warned,"0 and -5 rejected by the server, but with the misleading message 'Molimo popunite sva obavezna polja...'. 99999 accepted and saved with no warning.",Fail,Medium,BUG-009,E1
-SR-08,Submit recipe,Servings slider range and display,User is logged in,1. Drag servings slider to both ends,-,Range is 1–15; displayed number matches slider position,As expected. Range 1–15; display matches.,Pass,Low,,E1
-SR-09,Submit recipe,Difficulty slider range and display,User is logged in,1. Drag difficulty slider to both ends,-,Range is 1–5; displayed number matches slider position,As expected. Range 1–5; display matches.,Pass,Low,,E1
+99999",0 and negative values rejected; unrealistic values rejected or warned,"0 and -5 rejected by the server, but with the misleading message 'Molimo popunite sva obavezna polja...'. 99999 accepted and saved with no warning.",Fail,Medium,BUG-009,E1,,
+SR-08,Submit recipe,Servings slider range and display,User is logged in,1. Drag servings slider to both ends,-,Range is 1–15; displayed number matches slider position,As expected. Range 1–15; display matches.,Pass,Low,,E1,,
+SR-09,Submit recipe,Difficulty slider range and display,User is logged in,1. Drag difficulty slider to both ends,-,Range is 1–5; displayed number matches slider position,As expected. Range 1–5; display matches.,Pass,Low,,E1,,
 SR-10,Submit recipe,Title longer than 255 characters,User is logged in,"1. Paste a 300-character title
 2. Fill other required fields
-3. Click Submit",300 x 'a',Input limited or clear error shown; no database error shown to the user,"No input limit. Recipe not saved and raw database error shown: 'Greška pri upisu u bazu: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'Title' at row 1'.",Fail,Medium,BUG-007,E1
+3. Click Submit",300 x 'a',Input limited or clear error shown; no database error shown to the user,"No input limit. Recipe not saved and raw database error shown: 'Greška pri upisu u bazu: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'Title' at row 1'.",Fail,Medium,BUG-007,E1,,
 SR-11,Submit recipe,HTML in text fields is shown as plain text,User is logged in,"1. Enter HTML in Title and Description
 2. Submit
-3. Open the recipe's details page and the list",<b>Bold</b> <script>alert(1)</script>,"Text shown literally; no bold formatting, no alert popup","As expected. HTML shown as plain text; no bold, no alert.",Pass,High,,E1
-ED-01,Edit / delete recipe,Owner sees Edit and Delete on own recipe,Logged in as the recipe's author,1. Open details page of own recipe,-,Edit and Delete buttons visible,As expected.,Pass,High,,E1
-ED-02,Edit / delete recipe,Other users don't see Edit and Delete,Logged in as a different user (or logged out),1. Open details page of someone else's recipe,-,Edit and Delete buttons not visible,Logged in as another user: buttons hidden (correct). Logged out: Change and Delete visible on every recipe.,Fail,High,BUG-001,E1
-ED-03,Edit / delete recipe,Edit another user's recipe via URL,Logged in as a user who is NOT the author,1. Open php/edit_recipe.php?id=<other user's recipe id>,id of a seed recipe,Access denied / redirected; edit form not shown,Logged in as another user: 'You do not have permission to edit this recipe!' (correct). Logged out: edit form opens and saving changes another user's recipe.,Fail,High,BUG-001,E1
+3. Open the recipe's details page and the list",<b>Bold</b> <script>alert(1)</script>,"Text shown literally; no bold formatting, no alert popup","As expected. HTML shown as plain text; no bold, no alert.",Pass,High,,E1,,
+ED-01,Edit / delete recipe,Owner sees Edit and Delete on own recipe,Logged in as the recipe's author,1. Open details page of own recipe,-,Edit and Delete buttons visible,As expected.,Pass,High,,E1,,
+ED-02,Edit / delete recipe,Other users don't see Edit and Delete,Logged in as a different user (or logged out),1. Open details page of someone else's recipe,-,Edit and Delete buttons not visible,Logged in as another user: buttons hidden (correct). Logged out: Change and Delete visible on every recipe.,Fail,High,BUG-001,E1,,
+ED-03,Edit / delete recipe,Edit another user's recipe via URL,Logged in as a user who is NOT the author,1. Open php/edit_recipe.php?id=<other user's recipe id>,id of a seed recipe,Access denied / redirected; edit form not shown,Logged in as another user: 'You do not have permission to edit this recipe!' (correct). Logged out: edit form opens and saving changes another user's recipe.,Fail,High,BUG-001,E1,,
 ED-04,Edit / delete recipe,Edit own recipe,Logged in as author,"1. Click Edit
 2. Change title, time and one category
-3. Save",Title: QA Test Pancakes v2,Redirected to details page showing the new values; old category removed (SQL check Q4),As expected. Redirected to details page; title and time updated; removed category gone.,Pass,High,,E1
+3. Save",Title: QA Test Pancakes v2,Redirected to details page showing the new values; old category removed (SQL check Q4),As expected. Redirected to details page; title and time updated; removed category gone.,Pass,High,,E1,,
 ED-05,Edit / delete recipe,Delete asks for confirmation (Cancel),Logged in as author,"1. Click Delete
-2. Click Cancel in the dialog",-,Confirmation dialog appears; recipe is NOT deleted after Cancel,As expected.,Pass,Medium,,E1
+2. Click Cancel in the dialog",-,Confirmation dialog appears; recipe is NOT deleted after Cancel,As expected.,Pass,Medium,,E1,,
 ED-06,Edit / delete recipe,Delete own recipe,Logged in as author,"1. Click Delete
-2. Confirm",-,Recipe gone from list; details URL no longer shows it; no orphan category/tag rows (SQL check Q5),As expected. No orphan category or tag rows.,Pass,High,,E1
+2. Confirm",-,Recipe gone from list; details URL no longer shows it; no orphan category/tag rows (SQL check Q5),As expected. No orphan category or tag rows.,Pass,High,,E1,,
 RB-01,Browse and search,Search by existing keyword,Seed recipes exist,"1. Type a word from a recipe title into search
-2. Press Enter",pasta,Only matching recipes shown,As expected. 'pasta' returns only Vodka Pasta.,Pass,High,,E1
-RB-02,Browse and search,Search with no matches,-,1. Search a nonsense word,zzqxw,'No recipes found' message; no errors,As expected. 'No recipes found matching your filters.',Pass,Medium,,E1
-RB-03,Browse and search,Search is case-insensitive,Seed recipes exist,1. Search the same word in lower and upper case,pasta / PASTA,Same results for both,As expected.,Pass,Low,,E1
+2. Press Enter",pasta,Only matching recipes shown,As expected. 'pasta' returns only Vodka Pasta.,Pass,High,,E1,,
+RB-02,Browse and search,Search with no matches,-,1. Search a nonsense word,zzqxw,'No recipes found' message; no errors,As expected. 'No recipes found matching your filters.',Pass,Medium,,E1,,
+RB-03,Browse and search,Search is case-insensitive,Seed recipes exist,1. Search the same word in lower and upper case,pasta / PASTA,Same results for both,As expected.,Pass,Low,,E1,,
 RB-04,Browse and search,Filter by time and difficulty,-,"1. On recipes page tick a time range
 2. Select a difficulty
-3. Apply","10–30 min, difficulty 2",Every shown recipe matches both filters,"As expected. 4 recipes shown, all 10–30 min and difficulty 2; matches the database.",Pass,High,,E1
+3. Apply","10–30 min, difficulty 2",Every shown recipe matches both filters,"As expected. 4 recipes shown, all 10–30 min and difficulty 2; matches the database.",Pass,High,,E1,,
 RB-05,Browse and search,Search term kept when filtering,-,"1. Search a keyword
-2. Then apply a filter",pasta + 30–60 min,Results match both the keyword and the filter; keyword still visible in search box,"Results are correct (keyword and filter both applied), but the search box is empty after filtering.",Fail,Medium,BUG-013,E1
-RB-06,Browse and search,Sorting options,-,1. Try each option in the Sort dropdown,-,List reorders correctly for each option,"As expected. Time ascending, time descending and highest rated all ordered correctly.",Pass,Medium,,E1
-RB-07,Browse and search,Details page without id,-,1. Open php/details.php with no ?id,-,Redirected to recipes list,As expected.,Pass,Low,,E1
+2. Then apply a filter",pasta + 30–60 min,Results match both the keyword and the filter; keyword still visible in search box,"Results are correct (keyword and filter both applied), but the search box is empty after filtering.",Fail,Medium,BUG-013,E1,,
+RB-06,Browse and search,Sorting options,-,1. Try each option in the Sort dropdown,-,List reorders correctly for each option,"As expected. Time ascending, time descending and highest rated all ordered correctly.",Pass,Medium,,E1,,
+RB-07,Browse and search,Details page without id,-,1. Open php/details.php with no ?id,-,Redirected to recipes list,As expected.,Pass,Low,,E1,,
 RB-08,Browse and search,Details page with non-existent or invalid id,-,"1. Open details.php?id=99999
-2. Open details.php?id=abc",-,User-friendly 'not found' page within the normal site layout; no raw errors,"Both show only the plain text 'Recipe not found.' on a blank, unstyled page with no header, footer or navigation.",Fail,Medium,BUG-012,E1
+2. Open details.php?id=abc",-,User-friendly 'not found' page within the normal site layout; no raw errors,"Both show only the plain text 'Recipe not found.' on a blank, unstyled page with no header, footer or navigation.",Fail,Medium,BUG-012,E1,,
 SP-01,Support and newsletter,Submit support form with valid data,On support page,"1. Fill all support fields
-2. Submit","Valid name, email, subject, message",Confirmation shown; request saved in support table (SQL check Q6),Form has no backend: page just reloads with the data in the URL (?type=1&email=...); nothing saved in support table; no confirmation.,Fail,High,BUG-005,E1
+2. Submit","Valid name, email, subject, message",Confirmation shown; request saved in support table (SQL check Q6),Form has no backend: page just reloads with the data in the URL (?type=1&email=...); nothing saved in support table; no confirmation.,Fail,High,BUG-005,E1,,
 SP-02,Support and newsletter,Submit support form empty / invalid email,On support page,"1. Submit with empty fields
-2. Submit with invalid email",email: test@,Form not submitted; errors shown,No validation: empty form and invalid email 'test@' both submit (email field is type='text').,Fail,Medium,BUG-011,E1
+2. Submit with invalid email",email: test@,Form not submitted; errors shown,No validation: empty form and invalid email 'test@' both submit (email field is type='text').,Fail,Medium,BUG-011,E1,,
 SP-03,Support and newsletter,Newsletter signup with invalid email,Any page with newsletter field,"1. Enter invalid email in newsletter field
-2. Submit",abc,Rejected with validation message,"As expected. Browser rejects 'abc'. (A valid email also does nothing, see BUG-005.)",Pass,Low,,E1
-UI-01,UI and responsiveness,All navigation and footer links work,-,1. Click every header and footer link on each page,-,Every link opens the correct page; no 404s or dead '#' links,"No 404s. Footer links Terms of service, Privacy policy and Trademarks point to '#' and go nowhere.",Fail,Medium,BUG-014,E1
+2. Submit",abc,Rejected with validation message,"As expected. Browser rejects 'abc'. (A valid email also does nothing, see BUG-005.)",Pass,Low,,E1,,
+UI-01,UI and responsiveness,All navigation and footer links work,-,1. Click every header and footer link on each page,-,Every link opens the correct page; no 404s or dead '#' links,"No 404s. Footer links Terms of service, Privacy policy and Trademarks point to '#' and go nowhere.",Fail,Medium,BUG-014,E1,,
 UI-02,UI and responsiveness,Home page carousel,-,"1. Watch carousel
-2. Use its controls",-,Slides change correctly; controls work; images not distorted,As expected. Auto-advances every ~3.5 s; Previous and Next work; images not distorted (object-fit: cover).,Pass,Low,,E1
+2. Use its controls",-,Slides change correctly; controls work; images not distorted,As expected. Auto-advances every ~3.5 s; Previous and Next work; images not distorted (object-fit: cover).,Pass,Low,,E1,,
 UI-03,UI and responsiveness,Mobile layout (phone width),Browser mobile device view (phone width),"1. Visit home, recipes, details, submit, login
-2. Scroll each page",-,No horizontal scrolling; text readable; buttons usable by touch,"As expected. No horizontal scrolling on home, recipes, details, submit and login (phone-width device view).",Pass,High,,E1
+2. Scroll each page",-,No horizontal scrolling; text readable; buttons usable by touch,"As expected. No horizontal scrolling on home, recipes, details, submit and login (phone-width device view).",Pass,High,,E1,,
 UI-04,UI and responsiveness,Filter panel on mobile,Browser mobile device view (phone width),"1. Open recipes page
 2. Open filter panel
-3. Close it",-,Panel opens and closes; page scrolls normally after closing,"Panel opens, but has no close button on mobile (hidden by CSS). Only way out is Apply Filters.",Fail,Medium,BUG-006,E1
-UI-05,UI and responsiveness,Cross-browser check,Two different browsers on Windows,"1. Repeat SU-01, LI-01, SR-01 and RB-01 in a second browser",-,Same behavior and layout in both browsers,As expected.,Pass,Medium,,E1
+3. Close it",-,Panel opens and closes; page scrolls normally after closing,"Panel opens, but has no close button on mobile (hidden by CSS). Only way out is Apply Filters.",Fail,Medium,BUG-006,E1,,
+UI-05,UI and responsiveness,Cross-browser check,Two different browsers on Windows,"1. Repeat SU-01, LI-01, SR-01 and RB-01 in a second browser",-,Same behavior and layout in both browsers,As expected.,Pass,Medium,,E1,,
