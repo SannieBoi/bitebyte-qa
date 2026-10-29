@@ -12,8 +12,7 @@ Manual testing of **[BiteByte](https://github.com/SannieBoi/BiteByte)**, a recip
 | Bugs reported | 17 (Critical 2, Major 4, Minor 9, Trivial 2) |
 | Test period | 10/2026 |
 
-**Most serious findings:** logged-out visitors can edit and delete any recipe ([BUG-001](bug-reports/BUG-001.md)), and a `.php` file uploaded as a recipe photo runs on the server ([BUG-002](bug-reports/BUG-002.md)).
-
+**Most serious findings:** logged-out visitors can edit and delete any recipe ([BUG-001](bug-reports/BUG-001.md), a known development shortcut, still open), and a `.php` file uploaded as a recipe photo ran on the server ([BUG-002](bug-reports/BUG-002.md), **fixed and retested**).
 Full numbers and conclusion: [test-summary-report.md](test-summary-report.md)
 
 ## What's in this repo
