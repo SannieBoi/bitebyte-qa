@@ -57,3 +57,7 @@ Pass rate: 72% (42 / 58).
 - Repeat all signup and recipe validation on the server, with English error messages (BUG-003, BUG-007, BUG-009, BUG-010).
 - Add a Log out button and a logged-in header (BUG-004).
 - Connect the support form to the `support` table, or remove it until it works (BUG-005, BUG-011).
+
+## Update – 29.10.2026
+
+BUG-002 (critical) was fixed and retested: the server now accepts only real JPG/PNG uploads. SR-05 now passes on retest, and the regression checks SR-01 and SR-04 still pass. The results above are from the original test run and were not changed.
