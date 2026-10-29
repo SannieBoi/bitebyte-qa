@@ -5,7 +5,7 @@ One file per bug, created from [BUG-TEMPLATE.md](BUG-TEMPLATE.md). Screenshots a
 | Bug ID | Title | Severity | Priority | Test case | Status |
 | --- | --- | --- | --- | --- | --- |
 | [BUG-001](BUG-001.md) | Edit/delete: logged-out visitors can edit and delete any recipe | Critical | High | ED-02, ED-03 | Open |
-| [BUG-002](BUG-002.md) | Submit recipe: any file type is accepted as a photo, and uploaded .php files run on the server | Critical | High | SR-05 | Open |
+| [BUG-002](BUG-002.md) | Submit recipe: any file type is accepted as a photo, and uploaded .php files run on the server | Critical | High | SR-05 | Fixed |
 | [BUG-003](BUG-003.md) | Sign up: server accepts usernames and passwords that break the signup rules when JavaScript is off | Major | High | SU-15 | Open |
 | [BUG-004](BUG-004.md) | Log out: there is no Log out button, and the header shows LOG IN / SIGN UP while logged in | Major | High | LI-06 | Open |
 | [BUG-005](BUG-005.md) | Support and newsletter: forms don't send or save anything | Major | Medium | SP-01 (also SP-03) | Open |
